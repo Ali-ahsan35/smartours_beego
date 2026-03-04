@@ -91,40 +91,117 @@ document.addEventListener("DOMContentLoaded", function () {
             const geo = item.GeoInfo;
             const partner = item.Partner;
 
+            const id = item.ID || "";
             const name = p?.PropertyName || "Unnamed Property";
             const type = p?.PropertyType || "";
-            const price = p?.Price ? "From BD ৳ " + Math.round(p.Price * 120).toLocaleString() : "Price on request";
+            const price = p?.Price ? Math.round(p.Price * 120).toLocaleString() : null;
             const rating = p?.ReviewScore ? p.ReviewScore.toFixed(1) : null;
             const reviews = p?.Counts?.Reviews || 0;
-            const location = geo?.Display || "";
             const imgName = p?.FeatureImage || "";
             const imgUrl = imgName ? "https://imgservice.smartours.com/600x600/" + imgName : null;
-            const source = partner?.URL?.includes("booking.com") ? "Booking.com" : "Expedia";
+            const partnerUrl = partner?.URL || "#";
+            const isExpedia = partnerUrl.includes("expedia");
+            const amenities = p?.Amenities ? Object.values(p.Amenities).slice(0, 3) : [];
+
+            // Build breadcrumb location list
+            const display = geo?.Display || [];
+            const locationItems = Array.isArray(display)
+                ? display.map(d => `<li><span class="pt-tile-bdc">${d}</span></li>`).join("")
+                : `<li><span class="pt-tile-bdc">${display}</span></li>`;
+
+            // Build amenities list
+            const amenityItems = amenities.map(a =>
+                `<li class="pt-am-item">${a}</li>`
+            ).join("");
+
+            // Star rating class (1-5)
+            const stars = p?.StarRating || 0;
+            const starClass = stars > 0 ? `ratings star-icons-${stars}` : "ratings";
 
             const card = document.createElement("div");
-            card.className = "property-card";
+            card.setAttribute("data-property_id", id);
+            card.className = "sp-property-card";
             card.style.animationDelay = (index * 0.04) + "s";
 
             card.innerHTML = `
-                ${imgUrl
-                    ? `<img class="card-img" src="${imgUrl}" alt="${name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
-                    : ""}
-                <div class="card-img-placeholder" style="display:${imgUrl ? 'none' : 'flex'}">🏠</div>
-                <div class="card-body">
-                    <div class="card-top">
-                        <div class="card-rating">
-                            ${rating
-                                ? `<span class="rating-badge">${rating}</span><span>(${reviews} Reviews)</span>`
-                                : '<span style="color:#ccc">No reviews</span>'}
-                        </div>
-                        <span class="card-type">${type}</span>
+                <!-- Image Section -->
+                <div class="image-section relative" id="js-${id}-image-section">
+                    <div class="tiles-icons absolute">
+                        <div class="tiles-btn fav-icon heart-btn" data-id="${id}" title="Bookmark">♡</div>
                     </div>
-                    <div class="card-name">${name}</div>
-                    <div class="card-location">${location}</div>
-                    <div class="card-price">${price} <span>/ night</span></div>
-                    <div class="card-footer">
-                        <span class="card-source">${source}</span>
-                        <button class="card-btn" onclick="window.open('${partner?.URL || '#'}', '_blank')">View Availability</button>
+
+                    <a href="${partnerUrl}" target="_blank" class="sp-property-image js-tiles-redirect">
+                        ${imgUrl
+                            ? `<img class="featured-image pt-featured-image" src="${imgUrl}" alt="${name}" onerror="this.src=''">`
+                            : `<div class="featured-image pt-featured-image" style="background:#e8eef5;display:flex;align-items:center;justify-content:center;font-size:36px;">🏠</div>`
+                        }
+                        ${price
+                            ? `<span class="property-price js-price-value">From BD ৳ ${price}</span>`
+                            : ""
+                        }
+                    </a>
+                </div>
+
+                <!-- Details Section -->
+                <div class="sp-property-details js-tiles-redirect">
+                    <div class="pt-content-wrap">
+
+                        <!-- Rating row -->
+                        <div class="property-review pt-property-review">
+                            <div class="rating-review pt-rating-review">
+                                <div class="${starClass}"></div>
+                                ${rating ? `<span class="divider"> | </span>` : ""}
+                                ${rating ? `
+                                <div class="reviews pt-reviews">
+                                    <span class="text-bold review-general">${rating}</span>
+                                    <span class="number-of-review">(${reviews} Reviews)</span>
+                                </div>` : ""}
+                            </div>
+                            <span class="property-type">${type}</span>
+                        </div>
+
+                        <!-- Property name -->
+                        <div class="property-title">
+                            <a title="${name}" href="${partnerUrl}" target="_blank" class="pt-property-title refine-page-redirect">
+                                ${name}
+                            </a>
+                        </div>
+
+                        <!-- Amenities + Location -->
+                        <div class="property-info-wrap">
+                            <div class="property-info">
+                                <ul class="ellipsis pt-amenities">
+                                    ${amenityItems}
+                                </ul>
+                            </div>
+                            <div class="property-location">
+                                <ul class="ellipsis pt-breadcrumbs">
+                                    ${locationItems}
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Bottom: logo + price + button -->
+                    <div class="property-bottom">
+                        <div class="property-brand">
+                            <a rel="nofollow" class="pt-logo-wrap" href="${partnerUrl}" target="_blank">
+                                ${isExpedia
+                                    ? `<img src="/static/img/partners-logo/expedia_v2.svg" height="14" width="80" alt="Expedia" class="pt-partner-logo">`
+                                    : `<img src="/static/img/partners-logo/booking.svg" height="14" width="80" alt="Booking.com" class="pt-partner-logo">`
+                                }
+                            </a>
+                        </div>
+                        <a href="${partnerUrl}" rel="nofollow" target="_blank" class="availability-button pt-availability">
+                            View Availability
+                        </a>
+                        ${price ? `
+                        <span class="list-tile-price property-price js-price-value">
+                            <span class="pt-from">From</span>
+                            BD ৳ ${price}
+                            <span class="pt-per-night">/ night</span>
+                        </span>` : ""}
                     </div>
                 </div>
             `;

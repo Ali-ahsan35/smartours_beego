@@ -4,8 +4,34 @@
     <title>Vacation Rentals</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="static/css/style.css">
 
+
+    <link rel="stylesheet" href="static/css/variables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.123presto.com/prod/static/css/global-1.1.80.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.123presto.com/prod/static/css/refine-1.1.80.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.123presto.com/prod/static/css/tile-1.1.80.css"/>
+
+    <style>
+        .grid {
+            display: grid !important;
+            grid-template-columns: repeat(4, 1fr) !important;
+            gap: 18px !important;
+        }
+        body {
+            padding-left: 40px;
+            padding-right: 30px;
+        }
+
+        .sp-property-card {
+            width: 100% !important;
+            margin: 0 !important;
+            float: none !important;
+        }
+
+        @media (max-width: 1200px) { .grid { grid-template-columns: repeat(3, 1fr) !important; } }
+        @media (max-width: 860px)  { .grid { grid-template-columns: repeat(2, 1fr) !important; } }
+        @media (max-width: 520px)  { .grid { grid-template-columns: 1fr !important; } }
+    </style>
 </head>
 <body>
 
