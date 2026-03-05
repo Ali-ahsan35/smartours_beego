@@ -189,38 +189,38 @@
             </div>
           </div>
 
-          <!-- Price Range -->
-          <div class="popup-price-range row" style="border:2px solid var(--secondary-color);">
+        <!-- Price Range -->
+        <div class="popup-price-range row" style="border:2px solid var(--secondary-color);">
             <div class="filter-price-range">
-              <div class="popup-check-box-label-title font-16 sp-text-center">Price range</div>
-              <div class="price-slider js-price-slider">
-                <div class="slider-range" id="js-slider-range" style="left:0%;width:100%;"></div>
-                <input value="0" min="0" max="100000" step="100" id="js-min-price-slider" type="range">
-                <input value="100000" min="0" max="100000" step="100" id="js-max-price-slider" type="range">
-              </div>
+                <div class="popup-check-box-label-title font-16 sp-text-center">Price range</div>
+                <div class="price-slider js-price-slider">
+                    <div class="slider-range" id="js-slider-range" style="left:0%;width:100%;"></div>
+                    <input value="244" min="244" max="122096" step="100" id="js-min-price-slider" type="range">
+                    <input value="122096" min="244" max="122096" step="100" id="js-max-price-slider" type="range">
+                </div>
             </div>
             <div class="popup-min-max-price align-item-center js-price-input">
-              <div class="popup-min-price-main">
-                <label class="popup-min-max-label">Min price</label>
-                <div class="popup-min-price cursor-pointer">
-                  <span class="currency-text-box">
-                    <span class="currency-icon" id="js-min-currency">BD ৳</span>
-                    <input class="popup-min-price-bottom" type="number" id="js-min-price" value="0" min="0" max="100000">
-                  </span>
+                <div class="popup-min-price-main">
+                    <label class="popup-min-max-label">Min price</label>
+                    <div class="popup-min-price cursor-pointer">
+                        <span class="currency-text-box">
+                            <span class="currency-icon">BD ৳</span>
+                            <input class="popup-min-price-bottom" type="number" id="js-min-price" value="244" min="244" max="122096">
+                        </span>
+                    </div>
                 </div>
-              </div>
-              <div class="hyphen"></div>
-              <div class="popup-max-price-main">
-                <div class="popup-max-price cursor-pointer">
-                  <span class="currency-text-box">
-                    <span class="currency-icon" id="js-max-currency">BD ৳</span>
-                    <input class="popup-min-price-bottom" type="number" id="js-max-price" value="100000" min="0" max="100000">
-                  </span>
+                <div class="hyphen"></div>
+                <div class="popup-max-price-main">
+                    <div class="popup-max-price cursor-pointer">
+                        <span class="currency-text-box">
+                            <span class="currency-icon">BD ৳</span>
+                            <input class="popup-min-price-bottom" type="number" id="js-max-price" value="122096" min="244" max="122096">
+                        </span>
+                    </div>
+                    <label class="popup-min-max-label">Max price</label>
                 </div>
-                <label class="popup-min-max-label">Max price</label>
-              </div>
             </div>
-          </div>
+        </div>
 
           <!-- Amenities -->
           <div class="popup-amenities row">
