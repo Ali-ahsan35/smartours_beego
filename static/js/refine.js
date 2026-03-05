@@ -90,7 +90,6 @@ document.addEventListener("DOMContentLoaded", function () {
             const p = item.Property;
             const geo = item.GeoInfo;
             const partner = item.Partner;
-
             const id = item.ID || "";
             const name = p?.PropertyName || "Unnamed Property";
             const type = p?.PropertyType || "";

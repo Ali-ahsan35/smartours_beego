@@ -122,35 +122,204 @@
     </div>
 </div>
 
+<!-- MORE FILTERS MODAL — exact class names from real site -->
+<div class="poup-container filter-popup js-modal hidden" id="js-filter">
+  <div class="popup-layer"></div>
+  <div class="modal-container">
+    <div class="modal-header">
+      <div class="popup-title font-20 font-semibold sp-text-center">
+        Filters
+        <div class="filter-cross-btn close-btn js-trigger-hide">✕</div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="top">
+        <div class="filter-pop-up-container">
+
+          <!-- Pet friendly -->
+          <label class="relative cursor-pointer font-22 filter-level filter-pet-eco">
+            <div class="d-flex">
+              <div class="icon-text">
+                <div class="icon-title">
+                  <div class="popup-check-box-label-title filter-pet-eco-title font-16">Pet-friendly only</div>
+                </div>
+                <input class="pet-eco-checkmark pet-checkmark js-pet-friendly amenities-cb" value="11" type="checkbox" id="amenity-11">
+              </div>
+            </div>
+          </label>
+
+          <!-- Eco friendly -->
+          <label class="relative cursor-pointer font-22 filter-level filter-pet-eco">
+            <div class="d-flex">
+              <div class="icon-text">
+                <div class="icon-title">
+                  <div class="popup-check-box-label-title filter-pet-eco-title font-16">Eco-friendly only</div>
+                </div>
+                <input class="pet-eco-checkmark eco-checkmark" type="checkbox" id="js-eco-friendly">
+              </div>
+            </div>
+          </label>
+
+          <!-- Dates -->
+          <div class="filter-check-in-out">
+            <label class="filter-input-label" for="modal-datepicker"></label>
+            <div class="choose-date">
+              <div class="dp-inline" id="modal-dp">
+                <input class="datepicker-input sp-datepicker" readonly placeholder="Select a date" id="modal-datepicker">
+                <div class="calendar-icon">📅</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Guests -->
+          <div class="filter-guest" style="border:none;">
+            <div class="d-flex align-item-center justify-between w-100">
+              <div class="popup-check-box-label-title font-16">Guests</div>
+              <div class="guestPopup">
+                <div class="top">
+                  <div class="wrapper">
+                    <div class="js-guest-filter guest-buttons d-flex align-item-center" style="gap:10px;">
+                      <button type="button" class="guest decrease" id="js-guest-decrease" style="width:28px;height:28px;border-radius:4px;background:var(--secondary-color);color:#fff;font-size:18px;display:flex;align-items:center;justify-content:center;">−</button>
+                      <span class="guest guest-count" id="js-guest-count" style="font-size:18px;min-width:30px;text-align:center;">0</span>
+                      <button type="button" class="guest increase" id="js-guest-increase" style="width:28px;height:28px;border-radius:4px;background:var(--secondary-color);color:#fff;font-size:18px;display:flex;align-items:center;justify-content:center;">+</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Price Range -->
+          <div class="popup-price-range row" style="border:2px solid var(--secondary-color);">
+            <div class="filter-price-range">
+              <div class="popup-check-box-label-title font-16 sp-text-center">Price range</div>
+              <div class="price-slider js-price-slider">
+                <div class="slider-range" id="js-slider-range" style="left:0%;width:100%;"></div>
+                <input value="0" min="0" max="100000" step="100" id="js-min-price-slider" type="range">
+                <input value="100000" min="0" max="100000" step="100" id="js-max-price-slider" type="range">
+              </div>
+            </div>
+            <div class="popup-min-max-price align-item-center js-price-input">
+              <div class="popup-min-price-main">
+                <label class="popup-min-max-label">Min price</label>
+                <div class="popup-min-price cursor-pointer">
+                  <span class="currency-text-box">
+                    <span class="currency-icon" id="js-min-currency">BD ৳</span>
+                    <input class="popup-min-price-bottom" type="number" id="js-min-price" value="0" min="0" max="100000">
+                  </span>
+                </div>
+              </div>
+              <div class="hyphen"></div>
+              <div class="popup-max-price-main">
+                <div class="popup-max-price cursor-pointer">
+                  <span class="currency-text-box">
+                    <span class="currency-icon" id="js-max-currency">BD ৳</span>
+                    <input class="popup-min-price-bottom" type="number" id="js-max-price" value="100000" min="0" max="100000">
+                  </span>
+                </div>
+                <label class="popup-min-max-label">Max price</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Amenities -->
+          <div class="popup-amenities row">
+            <div class="popup-amenities-container">
+              <div class="popup-check-box-label-title popup-amenities-title font-16">Amenities</div>
+              <div class="popup-amenities-checkbox" id="js-dynamic-amenities-filter">
+                    <label class="popup-single-check-box relative cursor-pointer filter-amenities-level">
+                        <span class="inline-block ellipsis filter-amenities-span">Air Conditioner</span>
+                        <input class="absolute cursor-pointer amenities-cb" type="checkbox" id="amenity-1" value="1">
+                        <span class="checkmark absolute inline-block">&nbsp;</span>
+                    </label>
+                    <label class="popup-single-check-box relative cursor-pointer filter-amenities-level">
+                        <span class="inline-block ellipsis filter-amenities-span">Balcony/Terrace</span>
+                        <input class="absolute cursor-pointer amenities-cb" type="checkbox" id="amenity-2" value="2">
+                        <span class="checkmark absolute inline-block">&nbsp;</span>
+                    </label>
+                    <label class="popup-single-check-box relative cursor-pointer filter-amenities-level">
+                        <span class="inline-block ellipsis filter-amenities-span">Bedding/Linens</span>
+                        <input class="absolute cursor-pointer amenities-cb" type="checkbox" id="amenity-3" value="3">
+                        <span class="checkmark absolute inline-block">&nbsp;</span>
+                    </label>
+                    <label class="popup-single-check-box relative cursor-pointer filter-amenities-level">
+                        <span class="inline-block ellipsis filter-amenities-span">Breakfast</span>
+                        <input class="absolute cursor-pointer amenities-cb" type="checkbox" id="amenity-4" value="4">
+                        <span class="checkmark absolute inline-block">&nbsp;</span>
+                    </label>
+                    <label class="popup-single-check-box relative cursor-pointer filter-amenities-level">
+                        <span class="inline-block ellipsis filter-amenities-span">Child Friendly</span>
+                        <input class="absolute cursor-pointer amenities-cb" type="checkbox" id="amenity-5" value="5">
+                        <span class="checkmark absolute inline-block">&nbsp;</span>
+                    </label>
+                    <label class="popup-single-check-box relative cursor-pointer filter-amenities-level">
+                        <span class="inline-block ellipsis filter-amenities-span">Hot Tub</span>
+                        <input class="absolute cursor-pointer amenities-cb" type="checkbox" id="amenity-6" value="6">
+                        <span class="checkmark absolute inline-block">&nbsp;</span>
+                    </label>
+                    <label class="popup-single-check-box relative cursor-pointer filter-amenities-level">
+                        <span class="inline-block ellipsis filter-amenities-span">Internet/Wifi</span>
+                        <input class="absolute cursor-pointer amenities-cb" type="checkbox" id="amenity-7" value="7">
+                        <span class="checkmark absolute inline-block">&nbsp;</span>
+                    </label>
+                    <label class="popup-single-check-box relative cursor-pointer filter-amenities-level">
+                        <span class="inline-block ellipsis filter-amenities-span">Kitchen</span>
+                        <input class="absolute cursor-pointer amenities-cb" type="checkbox" id="amenity-8" value="8">
+                        <span class="checkmark absolute inline-block">&nbsp;</span>
+                    </label>
+                    <label class="popup-single-check-box relative cursor-pointer filter-amenities-level">
+                        <span class="inline-block ellipsis filter-amenities-span">Laundry</span>
+                        <input class="absolute cursor-pointer amenities-cb" type="checkbox" id="amenity-9" value="9">
+                        <span class="checkmark absolute inline-block">&nbsp;</span>
+                    </label>
+                    <label class="popup-single-check-box relative cursor-pointer filter-amenities-level">
+                        <span class="inline-block ellipsis filter-amenities-span">Parking</span>
+                        <input class="absolute cursor-pointer amenities-cb" type="checkbox" id="amenity-10" value="10">
+                        <span class="checkmark absolute inline-block">&nbsp;</span>
+                    </label>
+                    <label class="popup-single-check-box relative cursor-pointer filter-amenities-level">
+                        <span class="inline-block ellipsis filter-amenities-span">Pool</span>
+                        <input class="absolute cursor-pointer amenities-cb" type="checkbox" id="amenity-12" value="12">
+                        <span class="checkmark absolute inline-block">&nbsp;</span>
+                    </label>
+                    <label class="popup-single-check-box relative cursor-pointer filter-amenities-level">
+                        <span class="inline-block ellipsis filter-amenities-span">TV</span>
+                        <input class="absolute cursor-pointer amenities-cb" type="checkbox" id="amenity-14" value="14">
+                        <span class="checkmark absolute inline-block">&nbsp;</span>
+                    </label>
+                    <label class="popup-single-check-box relative cursor-pointer filter-amenities-level">
+                        <span class="inline-block ellipsis filter-amenities-span">Wheelchair Accessible</span>
+                        <input class="absolute cursor-pointer amenities-cb" type="checkbox" id="amenity-16" value="16">
+                        <span class="checkmark absolute inline-block">&nbsp;</span>
+                    </label>
+                </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer buttons -->
+    <div class="modal-footer">
+      <div class="filter-pop-up-container d-flex justify-content-between">
+        <div class="popup-buttons d-flex align-item-center cursor-pointer">
+          <button class="popup-clear-btn cursor-pointer" id="js-clear-filter">Clear</button>
+          <div class="search-btn-area">
+            <button class="popup-submit-btn cursor-pointer" id="js-apply-filter">
+              <span id="js-filter-select-text">Search</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <script src="/static/js/refine.js"></script>
-<script>
-    const sortWrap = document.getElementById('js-filter-sort');
-    const defaultOpt = sortWrap.querySelector('.default-option');
-    const hiddenInput = document.getElementById('sort-properties');
-
-    defaultOpt.addEventListener('click', () => {
-        sortWrap.classList.toggle('active');
-    });
-
-    sortWrap.querySelectorAll('.select-ul li').forEach(li => {
-        li.addEventListener('click', () => {
-            const value = li.getAttribute('data-value');
-            const text  = li.querySelector('p').textContent;
-            defaultOpt.querySelector('p').textContent = text;
-            hiddenInput.value = value;
-            sortWrap.classList.remove('active');
-
-            // Call loadProperties from refine.js
-            if (window.loadProperties && window.currentCategory) {
-                window.loadProperties(window.currentCategory, value);
-            }
-        });
-    });
-
-    document.addEventListener('click', (e) => {
-        if (!sortWrap.contains(e.target)) sortWrap.classList.remove('active');
-    });
-</script>
+<script src="/static/js/sort.js"></script>
+<script src="/static/js/modal.js"></script>
 
 </body>
 </html>

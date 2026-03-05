@@ -16,7 +16,7 @@ func (c *BreadcrumbController) Get() {
 	keyword := c.GetString("keyword")
 	encodedKeyword := url.QueryEscape(keyword)
 
-	apiURL := "https://smartours.com/api/location/v1?keyword=" + encodedKeyword + "&isLocationEntity=true"
+	apiURL := "https://presto:TRAV3LA1@ownerdirect.beta.123presto.com/api/location/v1?keyword=" + encodedKeyword + "&isLocationEntity=true"
 
 	resp, err := http.Get(apiURL)
 	if err != nil {

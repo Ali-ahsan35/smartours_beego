@@ -16,11 +16,10 @@ func (c *RefineController) Get() {
 	c.TplName = "refine.tpl"
 }
 
-
 func (c *RefineController) GetBreadcrumb() {
 	keyword := c.GetString("keyword")
 
-	apiURL := "https://smartours.com/api/location/v1?keyword=" +
+	apiURL := "https://presto:TRAV3LA1@ownerdirect.beta.123presto.com/api/location/v1?keyword=" +
 		url.QueryEscape(keyword) + "&isLocationEntity=true"
 
 	req, err := http.NewRequest("GET", apiURL, nil)
