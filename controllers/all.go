@@ -66,11 +66,47 @@ func (c *AllController) Get() {
 		}
 	}
 
+	// After existing geoInfo extraction, add:
+	items := []interface{}{}
+	if result, ok := result["Result"].(map[string]interface{}); ok {
+		if itemsList, ok := result["Items"].([]interface{}); ok {
+			items = itemsList
+		}
+	}
+
+	// Process items to extract first 3 amenities
+	processedItems := []map[string]interface{}{}
+	for _, item := range items {
+		itemMap, ok := item.(map[string]interface{})
+		if !ok {
+			continue
+		}
+		prop, _ := itemMap["Property"].(map[string]interface{})
+		if prop != nil {
+			amenitiesMap, _ := prop["Amenities"].(map[string]interface{})
+			top3 := []string{}
+			for _, v := range amenitiesMap {
+				if len(top3) >= 3 {
+					break
+				}
+				top3 = append(top3, v.(string))
+			}
+			prop["TopAmenities"] = top3
+			itemMap["Property"] = prop
+		}
+		processedItems = append(processedItems, itemMap)
+	}
+
+	c.Data["Items"] = processedItems
 	c.Data["Country"] = country
+	c.Data["LocationName"] = locationName
 	c.Data["PropertyCount"] = propertyCount
-	c.Data["LocationName"] = locationName
 	c.Data["Breadcrumbs"] = breadcrumbs
-	c.Data["LocationName"] = locationName
-	c.Data["CategoryData"] = result
+	c.Data["Items"] = items
 	c.TplName = "all.tpl"
+	// c.Layout = ""  
+
+	// // Load both templates
+	// beego.ExecuteTemplate(c.Ctx.ResponseWriter, "all.tpl", c.Data)
+
 }
