@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/url"
 
@@ -13,11 +14,16 @@ type RefineController struct {
 }
 
 func (c *RefineController) Get() {
-	c.TplName = "refine.tpl"
+    keyword := c.GetString("search", "Barcelona, Spain")
+	fmt.Println("Search keyword:", keyword) 
+    c.Data["Keyword"] = keyword
+    c.TplName = "refine.tpl"
 }
 
 func (c *RefineController) GetBreadcrumb() {
-	keyword := c.GetString("keyword")
+	keyword := c.GetString("keyword", "Barcelona, Spain")
+	
+	c.Data["Keyword"] = keyword
 
 	apiURL := "https://presto:TRAV3LA1@ownerdirect.beta.123presto.com/api/location/v1?keyword=" +
 		url.QueryEscape(keyword) + "&isLocationEntity=true"

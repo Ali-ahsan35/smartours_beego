@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const keyword = "Barcelona, Spain";
+  const keyword = window.searchKeyword || "Barcelona, Spain";
   let currentCategory = "";
 
   // Step 1: breadcrumb — runs once on page load
@@ -35,7 +35,9 @@ document.addEventListener("DOMContentLoaded", function () {
       window.currentCategory = currentCategory; // ← expose to window
 
       // Load properties with default sort (order=1)
-      window.loadProperties(currentCategory, 1);
+      const urlParams = new URLSearchParams(window.location.search);
+      const defaultOrder = parseInt(urlParams.get('order')) || 1;
+      window.loadProperties(currentCategory, defaultOrder);
     })
     .catch((err) => {
       console.error("Breadcrumb error:", err);
@@ -53,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Add filters to URL if provided
     if (filters.amenities && filters.amenities.length > 0) {
-      url += "&amenities=" + filters.amenities.join(",");
+      url += "&amenities=" + filters.amenities.join("-");
     }
     if (filters.ecoFriendly) {
       url += "&ecoFriendly=true";

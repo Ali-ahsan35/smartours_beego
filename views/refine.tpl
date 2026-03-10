@@ -317,6 +317,9 @@
   </div>
 </div>
 
+<script>
+    window.searchKeyword = "{{.Keyword}}";
+</script>
 <script src="/static/js/refine.js"></script>
 <script src="/static/js/sort.js"></script>
 <script src="/static/js/modal.js"></script>
