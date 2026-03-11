@@ -323,6 +323,26 @@
 <script src="/static/js/refine.js"></script>
 <script src="/static/js/sort.js"></script>
 <script src="/static/js/modal.js"></script>
-
+<script src="/static/js/redirect.js"></script>
+<script src="/static/js/favourite.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    // Restore happens after cards load, so use MutationObserver
+    const observer = new MutationObserver(function() {
+        let favourites = JSON.parse(localStorage.getItem('favourite_list') || '{}');
+        Object.keys(favourites).forEach(id => {
+            const btn = document.querySelector(`.heart-btn[data-id="${id}"]`);
+            if (btn) {
+                const icon = btn.querySelector('.heart-icon');
+                if (icon) {
+                    icon.setAttribute('fill', 'red');
+                    icon.setAttribute('stroke', 'red');
+                }
+            }
+        });
+    });
+    observer.observe(document.getElementById('grid'), { childList: true });
+});
+</script>
 </body>
 </html>

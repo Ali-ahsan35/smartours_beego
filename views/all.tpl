@@ -212,6 +212,7 @@
             });
         });
     </script>
+    <script src="/static/js/redirect.js"></script>
 
 </body>
 </html>

@@ -34,7 +34,7 @@
                 </svg>
             </div>
         </div>
-        <a rel="nofollow" target="_blank" class="sp-property-image" href="{{index $partner "URL"}}">
+        <a rel="nofollow" target="_blank" class="sp-property-image" href="#" onmouseenter="buildRedirectUrl(this)" onclick="redirectToPartner(this); return false;">
             {{$imgName := index $prop "FeatureImage"}}
             {{if $imgName}}
             <img class="featured-image pt-featured-image"
@@ -99,7 +99,9 @@
         <div class="property-bottom">
             <div class="property-brand">
                 {{$url := index $partner "URL"}}
-                <a rel="nofollow" class="pt-logo-wrap" href="{{$url}}" target="_blank">
+                <a rel="nofollow" class="pt-logo-wrap" href="#" target="_blank"
+                    onmouseenter="buildRedirectUrl(this)"
+                    onclick="redirectToPartner(this); return false;">
                     {{if $url}}
                         {{if contains $url "booking.com"}}
                         <img loading="lazy" src="/static/img/partners-logo/booking.svg" height="14" width="80" class="pt-partner-logo" alt="Booking.com">
@@ -114,6 +116,7 @@
             <a rel="nofollow" target="_blank"
                 class="availability-button pt-availability js-view-availability"
                 href="#"
+                onmouseenter="buildRedirectUrl(this)"
                 onclick="redirectToPartner(this); return false;">
                 View Availability
             </a>

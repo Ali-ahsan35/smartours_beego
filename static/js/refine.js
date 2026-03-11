@@ -224,15 +224,37 @@ document.addEventListener("DOMContentLoaded", function () {
       card.setAttribute("data-property_id", id);
       card.className = "sp-property-card";
       card.style.animationDelay = index * 0.04 + "s";
+      card.setAttribute("data-feed", item.Feed);
+      card.setAttribute("data-published", item.Published);
+      card.setAttribute("data-upat", p?.UpdatedAt || "");
+      card.setAttribute("data-lat", geo?.Lat || "");
+      card.setAttribute("data-lng", geo?.Lng || "");
+      card.setAttribute("data-type", p?.PropertyType || "");
+      card.setAttribute("data-dest_id", partner?.ID || "");
+      card.setAttribute("data-owner_id", partner?.OwnerID || "");
+      card.setAttribute("data-direct_url", partner?.URL || "");
+      card.setAttribute("data-display", geo?.Display || "");
+      card.setAttribute("data-city", geo?.City || "");
+      card.setAttribute("data-country", geo?.Country || "");
+      card.setAttribute("data-country_code", geo?.CountryCode || "");
+      card.setAttribute("data-epc", partner?.EpCluster || "");
+      card.setAttribute("data-eplid", geo?.LocationID || "");
+      card.setAttribute("data-index", index);
 
       card.innerHTML = `
                 <!-- Image Section -->
                 <div class="image-section relative" id="js-${id}-image-section">
                     <div class="tiles-icons absolute">
-                        <div class="tiles-btn fav-icon heart-btn" data-id="${id}" title="Bookmark">♡</div>
+                        <div class="tiles-btn fav-icon heart-btn" data-id="${id}" title="Bookmark" onclick="toggleFavourite(this)">
+                            <svg class="heart-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                            </svg>
+                        </div>
                     </div>
 
-                    <a href="${partnerUrl}" target="_blank" class="sp-property-image js-tiles-redirect">
+                    <a href="#" target="_blank" class="sp-property-image js-tiles-redirect"
+                        onmouseenter="buildRedirectUrl(this)"
+                        onclick="redirectToPartner(this); return false;">
                         ${
                           imgUrl
                             ? `<img class="featured-image pt-featured-image" src="${imgUrl}" alt="${name}" onerror="this.src=''">`
@@ -294,7 +316,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     <!-- Bottom: logo + price + button -->
                     <div class="property-bottom">
                         <div class="property-brand">
-                            <a rel="nofollow" class="pt-logo-wrap" href="${partnerUrl}" target="_blank">
+                            <a rel="nofollow" class="pt-logo-wrap" href="#" target="_blank"
+                              onmouseenter="buildRedirectUrl(this)"
+                              onclick="redirectToPartner(this); return false;">
                                 ${
                                   isExpedia
                                     ? `<img src="/static/img/partners-logo/expedia_v2.svg" height="14" width="80" alt="Expedia" class="pt-partner-logo">`
@@ -302,7 +326,10 @@ document.addEventListener("DOMContentLoaded", function () {
                                 }
                             </a>
                         </div>
-                        <a href="${partnerUrl}" rel="nofollow" target="_blank" class="availability-button pt-availability">
+                        <a href="#" rel="nofollow" target="_blank" 
+                            class="availability-button pt-availability"
+                            onmouseenter="buildRedirectUrl(this)"
+                            onclick="redirectToPartner(this); return false;">
                             View Availability
                         </a>
                         ${
