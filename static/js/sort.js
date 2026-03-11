@@ -16,7 +16,27 @@ sortWrap.querySelectorAll(".select-ul li").forEach((li) => {
 
     // Call loadProperties from refine.js
     if (window.loadProperties && window.currentCategory) {
-      window.loadProperties(window.currentCategory, value);
+        // Read current filters from URL so they are preserved
+        const urlParams = new URLSearchParams(window.location.search);
+        const savedFilters = {};
+        if (urlParams.get('amenities')) {
+            savedFilters.amenities = urlParams.get('amenities').split('-');
+        }
+        if (urlParams.get('ecoFriendly')) {
+            savedFilters.ecoFriendly = true;
+        }
+        if (urlParams.get('amount')) {
+            // amount in URL is BDT — convert to USD for API
+            const parts = urlParams.get('amount').split('-');
+            const minUSD = Math.round(parseInt(parts[0]) / 120);
+            const maxUSD = Math.round(parseInt(parts[1]) / 120);
+            savedFilters.amount = minUSD + '-' + maxUSD;      // USD for API
+            savedFilters.amountBDT = urlParams.get('amount'); // BDT for URL
+        }
+        if (urlParams.get('pax')) {
+            savedFilters.guests = parseInt(urlParams.get('pax'));
+        }
+        window.loadProperties(window.currentCategory, value, savedFilters);
     }
   });
 });
