@@ -292,7 +292,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         <!-- Property name -->
                         <div class="property-title">
-                            <a title="${name}" href="${partnerUrl}" target="_blank" class="pt-property-title refine-page-redirect">
+                            <a title="${name}" href="https://presto:TRAV3LA1@ownerdirect.beta.123presto.com/property/${p?.PropertySlug}/${id}" target="_blank" class="pt-property-title refine-page-redirect">
                                 ${name}
                             </a>
                         </div>

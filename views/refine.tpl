@@ -122,7 +122,7 @@
     </div>
 </div>
 
-<!-- MORE FILTERS MODAL — exact class names from real site -->
+<!-- FILTERS MODAL -->
 <div class="poup-container filter-popup js-modal hidden" id="js-filter">
   <div class="popup-layer"></div>
   <div class="modal-container">

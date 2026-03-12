@@ -23,7 +23,8 @@
     data-country_code="{{index $geo "CountryCode"}}"
     data-epc="{{index $partner "EpCluster"}}"
     data-eplid="{{index $geo "LocationID"}}"
-    data-index="{{index $item "Index"}}">
+    data-index="{{index $item "Index"}}"
+    data-slug="{{index $prop "PropertySlug"}}">
 
     <!-- Image -->
     <div class="image-section relative" style="position:relative;">
@@ -72,7 +73,7 @@
         <div class="property-title">
             <a title="{{index $prop "PropertyName"}}"
                 target="_blank"
-                href="{{index $partner "URL"}}"
+                href="/property/{{index $prop "PropertySlug"}}/{{$id}}"
                 class="pt-property-title">
                 {{index $prop "PropertyName"}}
             </a>
