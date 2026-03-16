@@ -87,8 +87,8 @@ go install github.com/beego/bee/v2@latest
 **1. Clone the repository**
 
 ```bash
-git clone https://github.com/yourusername/nestaway.git
-cd nestaway
+git clone https://github.com/Ali-ahsan35/NestAway
+cd NestAway
 ```
 
 **2. Install dependencies**
