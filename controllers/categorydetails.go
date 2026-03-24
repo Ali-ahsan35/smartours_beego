@@ -22,7 +22,7 @@ func (c *CategoryDetailsController) Get() {
 	}
 
 	result, err := requests.FetchCategoryDetails(slug)
-	 if err != nil {
+	if err != nil {
         c.Data["json"] = map[string]string{"error": err.Error()}
         c.ServeJSON()
         return
