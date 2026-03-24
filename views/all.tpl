@@ -512,6 +512,12 @@
     <script src="https://cdn.jsdelivr.net/npm/hotel-datepicker@4.5.0/dist/js/hotel-datepicker.min.js"></script>
     <script src="/static/js/datepicker.js"></script>
     <script src="/static/js/favourite.js"></script>
+    <script src="/static/js/imageslider.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initImageSlider();
+        });
+    </script>
 
 </body>
 </html>

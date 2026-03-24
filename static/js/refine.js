@@ -404,7 +404,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
       grid.appendChild(card);
     });
+    if (typeof initImageSlider === 'function') {
+        initImageSlider();
+    }
   }
-
-
 });

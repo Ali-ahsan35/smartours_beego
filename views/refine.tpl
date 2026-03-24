@@ -436,7 +436,7 @@
         </div>
     </div>
 </div>
- <script>window.searchKeyword = "{{.Keyword}}";</script>
+    <script>window.searchKeyword = "{{.Keyword}}";</script>
     <script src="/static/js/refine.js"></script>
     <script src="/static/js/sort.js"></script>
     <script src="/static/js/modal.js"></script>
@@ -463,5 +463,7 @@
     <script src="https://cdn.jsdelivr.net/npm/fecha@4.2.3/lib/fecha.umd.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/hotel-datepicker@4.5.0/dist/js/hotel-datepicker.min.js"></script>
     <script src="/static/js/datepicker.js"></script>
+    <script src="/static/js/imageslider.js"></script>
+    
 </body>
 </html>
