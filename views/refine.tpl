@@ -133,6 +133,19 @@
         #js-datepicker-modal .datepicker__info--feedback {
             display: none !important;
         }
+        .pt-featured-image {
+            transition: opacity 0.3s ease;
+        }
+        .slider-dots {
+            z-index: 20 !important;
+            position: absolute !important;
+            bottom: 8px !important;
+        }
+
+        .image-section {
+            position: relative !important;
+            overflow: visible !important;
+        }
         
         @media (max-width: 1200px) { .grid { grid-template-columns: repeat(3, 1fr) !important; } }
         @media (max-width: 860px)  { .grid { grid-template-columns: repeat(2, 1fr) !important; } }

@@ -3,7 +3,6 @@ function initImageSlider() {
         const imageSection = card.querySelector('.image-section');
         if (!imageSection) return;
 
-        //right arrow button
         const nextBtn = document.createElement('button');
         nextBtn.className = 'slider-next-btn';
         nextBtn.innerHTML = '❯';
@@ -25,7 +24,6 @@ function initImageSlider() {
         `;
         imageSection.appendChild(nextBtn);
 
-        // left arrow button
         const prevBtn = document.createElement('button');
         prevBtn.className = 'slider-prev-btn';
         prevBtn.innerHTML = '❮';
@@ -50,48 +48,81 @@ function initImageSlider() {
         // Show arrows on hover
         imageSection.addEventListener('mouseenter', () => {
             nextBtn.style.display = 'block';
+            if (card.dataset.imagesLoaded === 'true') {
+                const idx = parseInt(card.dataset.currentIndex || '0');
+                if (idx > 0) prevBtn.style.display = 'block';
+            }
         });
         imageSection.addEventListener('mouseleave', () => {
             nextBtn.style.display = 'none';
             prevBtn.style.display = 'none';
         });
 
-        // Click next arrow
         nextBtn.addEventListener('click', function(e) {
             e.stopPropagation();
             const propertyId = card.dataset.property_id;
 
-            // Already loaded
             if (card.dataset.imagesLoaded === 'true') {
                 navigateSlider(card, 1);
                 return;
             }
 
-            //fetch images from API
             fetch('/api/property/images?propertyId=' + propertyId)
                 .then(res => res.json())
                 .then(data => {
                     const images = data.Images || [];
                     if (images.length === 0) return;
 
-                    // Store images in dataset
                     card.dataset.images = JSON.stringify(images);
                     card.dataset.currentIndex = '0';
                     card.dataset.imagesLoaded = 'true';
 
-                    updateSliderImage(card);
-                    prevBtn.style.display = 'block';
+                    createDots(card, imageSection, images.length);
+
                     navigateSlider(card, 1);
                 })
                 .catch(err => console.error('Image fetch error:', err));
         });
 
-        // Click prev arrow
         prevBtn.addEventListener('click', function(e) {
             e.stopPropagation();
             navigateSlider(card, -1);
         });
     });
+}
+
+function createDots(card, imageSection, count) {
+    if (card.querySelector('.slider-dots')) return;
+
+    const dots = document.createElement('div');
+    dots.className = 'slider-dots';
+    dots.style.cssText = `
+        position: absolute;
+        bottom: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        z-index: 20;
+        pointer-events: none;
+    `;
+
+    for (let i = 0; i < count; i++) {
+        const dot = document.createElement('span');
+        dot.style.cssText = `
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: white;
+            opacity: 0.6;
+            transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+            display: inline-block;
+        `;
+        dots.appendChild(dot);
+    }
+
+    imageSection.appendChild(dots);
 }
 
 function navigateSlider(card, direction) {
@@ -104,7 +135,6 @@ function navigateSlider(card, direction) {
 
     updateSliderImage(card);
 
-    // Show/hide prev button based on index
     const prevBtn = card.querySelector('.slider-prev-btn');
     const nextBtn = card.querySelector('.slider-next-btn');
     if (prevBtn) prevBtn.style.display = currentIndex === 0 ? 'none' : 'block';
@@ -115,28 +145,29 @@ function updateSliderImage(card) {
     const images = JSON.parse(card.dataset.images || '[]');
     const currentIndex = parseInt(card.dataset.currentIndex || '0');
     const imgEl = card.querySelector('.pt-featured-image');
+
     if (imgEl && images[currentIndex]) {
-        imgEl.src = 'https://imgservice.ownerdirect.com/600x600/' + images[currentIndex];
+        imgEl.style.transition = 'opacity 0.3s ease';
+        imgEl.style.opacity = '0';
+        setTimeout(() => {
+            imgEl.src = 'https://imgservice.ownerdirect.com/600x600/' + images[currentIndex];
+            imgEl.style.opacity = '1';
+        }, 300);
     }
 
-    // Update image counter
-    let counter = card.querySelector('.slider-counter');
-    if (!counter) {
-        counter = document.createElement('span');
-        counter.className = 'slider-counter';
-        counter.style.cssText = `
-            position: absolute;
-            bottom: 8px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0,0,0,0.5);
-            color: white;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 11px;
-            z-index: 20;
-        `;
-        card.querySelector('.image-section').appendChild(counter);
-    }
-    counter.textContent = (currentIndex + 1) + ' / ' + images.length;
+    // Update active dot
+    const dots = card.querySelector('.slider-dots');
+    if (!dots) return;
+
+    dots.querySelectorAll('span').forEach((dot, i) => {
+        if (i === currentIndex) {
+            dot.style.width   = '9px';
+            dot.style.height  = '9px';
+            dot.style.opacity = '1';
+        } else {
+            dot.style.width   = '6px';
+            dot.style.height  = '6px';
+            dot.style.opacity = '0.6';
+        }
+    });
 }
