@@ -3,11 +3,12 @@ package controllers
 import (
 	"fmt"
 	"smartours/requests"
-	"github.com/beego/beego/v2/server/web"
+
+	beego "github.com/beego/beego/v2/server/web"
 )
 
 type RefineController struct {
-	web.Controller
+	beego.Controller
 }
 
 func (c *RefineController) Get() {
@@ -21,8 +22,8 @@ func (c *RefineController) GetBreadcrumb() {
 	keyword := c.GetString("keyword", "Barcelona, Spain")
 
 	c.Data["Keyword"] = keyword
-
-	result,err:=requests.FetchBreadcrumb(keyword)
+	baseURL, _ := beego.AppConfig.String("api_base_url")
+	result,err:=requests.FetchBreadcrumb(baseURL,keyword)
 	if err != nil {
         c.Data["json"] = map[string]string{"error": err.Error()}
         c.ServeJSON()
